@@ -1,0 +1,19 @@
+{
+  "name": "grunt-simple-ejs",
+  "version": "0.0.0",
+  "description": "process ejs template.",
+  "main": "index.js",
+  "dependencies": {
+    "ejs": "~0.8.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "gruntplugin"
+  ],
+  "author": "Fujisawa Shin",
+  "license": "BSD"
+}
