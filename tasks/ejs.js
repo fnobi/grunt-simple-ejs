@@ -1,9 +1,10 @@
 module.exports = function (grunt) {
-    grunt.registerTask('ejs', 'process ejs template', function () {
+    grunt.registerMultiTask('ejs', 'process ejs template', function () {
         var path = require('path'),
             ejs = require('ejs'),
 
-            config = grunt.config('ejs'),
+            target = this.target,
+            config = grunt.config('ejs')[target],
             options = grunt.file.readYAML(config.options);
 
         var files = [];
