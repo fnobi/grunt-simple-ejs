@@ -4,8 +4,14 @@ module.exports = function (grunt) {
             ejs = require('ejs'),
 
             target = this.target,
-            config = grunt.config('ejs')[target],
+            config = grunt.config('ejs')[target];
+
+        var options = {};
+        if (config.options.match(/\.yaml$/)) {
             options = grunt.file.readYAML(config.options);
+        } else if (config.options.match(/\.json$/)) {
+            options = grunt.file.readJSON(config.options);
+        }
 
         var files = [];
 
