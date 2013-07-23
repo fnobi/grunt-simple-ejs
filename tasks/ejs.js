@@ -4,19 +4,17 @@ module.exports = function (grunt) {
     grunt.registerMultiTask('ejs', 'process ejs template', function () {
         var path = require('path'),
             ejs = require('ejs'),
+            _ = grunt.util._,
 
             target = this.target,
             config = grunt.config('ejs')[target];
 
-        var options = parseOptions(config);
+        var options = parseOptions(config),
+            files = [],
+            template = _.isArray(config.template) ? config.template : [config.template];
 
-        var files = [];
 
-        if (!config.template[0]) {
-            config.template = [config.template];
-        }
-
-        config.template.forEach(function (pattern) {
+        template.forEach(function (pattern) {
             grunt.file.expandMapping(pattern, config.dest, {
                 rename: function (dest, matchedSrcPath, options) {
                     return dest + path.basename(matchedSrcPath).replace(/\.ejs$/, '');
