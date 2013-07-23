@@ -1,4 +1,6 @@
 module.exports = function (grunt) {
+    var parseOptions = require('../lib/parseOptions');
+
     grunt.registerMultiTask('ejs', 'process ejs template', function () {
         var path = require('path'),
             ejs = require('ejs'),
@@ -6,12 +8,7 @@ module.exports = function (grunt) {
             target = this.target,
             config = grunt.config('ejs')[target];
 
-        var options = {};
-        if (config.options.match(/\.yaml$/)) {
-            options = grunt.file.readYAML(config.options);
-        } else if (config.options.match(/\.json$/)) {
-            options = grunt.file.readJSON(config.options);
-        }
+        var options = parseOptions(config);
 
         var files = [];
 
