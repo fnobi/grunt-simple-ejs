@@ -19,7 +19,6 @@ module.exports = function (grunt) {
         }
 
         template.forEach(function (pattern) {
-            console.log(pattern);
             grunt.file.expandMapping(pattern, config.dest, {
                 rename: function (dest, matchedSrcPath, options) {
                     return path.join(
@@ -28,8 +27,6 @@ module.exports = function (grunt) {
                     );
                 }
             }).forEach(function (file) {
-                console.log(file);
-
                 options.filename = file.src[0];
 
                 grunt.file.write(
