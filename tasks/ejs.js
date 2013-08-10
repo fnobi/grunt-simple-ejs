@@ -22,7 +22,10 @@ module.exports = function (grunt) {
             console.log(pattern);
             grunt.file.expandMapping(pattern, config.dest, {
                 rename: function (dest, matchedSrcPath, options) {
-                    return dest + path.basename(matchedSrcPath).replace(/\.ejs$/, '');
+                    return path.join(
+                        dest,
+                        path.basename(matchedSrcPath).replace(/\.ejs$/, '')
+                    );
                 }
             }).forEach(function (file) {
                 console.log(file);
