@@ -12,11 +12,14 @@ module.exports = function (grunt) {
         var options = parseOptions(config),
             files = [],
             template = _.isArray(config.template) ? config.template : [config.template],
+            include = config.include || [],
             withExtensions = config.withExtensions ? true : false;
 
         if (withExtensions) {
             options = _.defaults(options, require('../lib/extensions'));
         }
+
+
 
         template.forEach(function (pattern) {
             grunt.file.expandMapping(pattern, config.dest, {
@@ -27,11 +30,25 @@ module.exports = function (grunt) {
                     );
                 }
             }).forEach(function (file) {
-                options.filename = file.src[0];
+                var srcPath = file.src[0];
+                var source = grunt.file.read(srcPath);
 
+                // embed include ejs
+                var includeStatements = [];
+                include.forEach(function (pattern) {
+                    grunt.file.expand(pattern).forEach(function (file) {
+                        var includePath = path.relative(path.dirname(srcPath), file);
+                        includeStatements.push(
+                            '<% include ' + includePath + '%>'
+                        );
+                    });
+                });
+                source = includeStatements.join('') + source;
+
+                options.filename = srcPath;
                 grunt.file.write(
                     file.dest,
-                    ejs.render(grunt.file.read(file.src[0]), options),
+                    ejs.render(source, options),
                     { encoding: 'utf8' }
                 );
                 console.log('[write] %s', file.dest);
@@ -39,3 +56,5 @@ module.exports = function (grunt) {
         });
     });
 };
+
+
