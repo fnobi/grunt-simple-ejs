@@ -9,9 +9,15 @@ module.exports = function(grunt) {
                options: [ { env: 'dev' } ],
                withExtensions: true
            }
+        },
+
+        release: {
+            options: { }
         }
     });
 
     grunt.loadTasks('tasks');
     grunt.registerTask('default', ['ejs:dev']);
+
+    grunt.loadNpmTasks('grunt-release');
 };
