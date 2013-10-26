@@ -14,6 +14,7 @@ module.exports = function (grunt) {
             templateRoot = config.templateRoot || '.',
             template = _.isArray(config.template) ? config.template : [config.template],
             include = config.include || [],
+            silentInclude = config.silentInclude === false ? false : true,
             withExtensions = config.withExtensions ? true : false;
 
         if (withExtensions) {
@@ -44,6 +45,10 @@ module.exports = function (grunt) {
                             '<% include ' + includePath + '%>'
                         );
                     });
+
+                    if (silentInclude) {
+                        includeStatements.push('<% buf = [] %>');
+                    }
                 });
                 source = includeStatements.join('') + source;
 
