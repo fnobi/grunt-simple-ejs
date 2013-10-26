@@ -6,6 +6,11 @@
     "ejs": "~0.8.4",
     "grunt": "~0.4.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fnobi/grunt-simple-ejs.git"
+  },
+  "bugs": "https://github.com/fnobi/grunt-simple-ejs/issues/",
   "devDependencies": {
     "chai": "~1.7.2",
     "grunt-release": "~0.6.0"
