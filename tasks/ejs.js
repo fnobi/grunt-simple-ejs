@@ -11,6 +11,7 @@ module.exports = function (grunt) {
 
         var options = parseOptions(config),
             files = [],
+            templateRoot = config.templateRoot || '.',
             template = _.isArray(config.template) ? config.template : [config.template],
             include = config.include || [],
             withExtensions = config.withExtensions ? true : false;
@@ -23,10 +24,11 @@ module.exports = function (grunt) {
 
         template.forEach(function (pattern) {
             grunt.file.expandMapping(pattern, config.dest, {
+                cwd: templateRoot,
                 rename: function (dest, matchedSrcPath, options) {
                     return path.join(
                         dest,
-                        path.basename(matchedSrcPath).replace(/\.ejs$/, '')
+                        matchedSrcPath.replace(/\.ejs$/, '')
                     );
                 }
             }).forEach(function (file) {

@@ -12,7 +12,8 @@ module.exports = function(grunt) {
 
         ejs: {
            dev: {
-               template: [ 'src/ejs/*.ejs' ],
+               templateRoot: 'src/ejs',
+               template: [ '*.ejs', 'article/*.ejs' ],
                dest: './',
                include: ['bower_components/external-templates/*.ejs'],
                options: [ 'option.dev.json', { env: 'dev' } ]
