@@ -13,6 +13,7 @@ module.exports = function (grunt) {
             files = [],
             templateRoot = config.templateRoot || '.',
             template = _.isArray(config.template) ? config.template : [config.template],
+            outputfile = config.outputfile,
             include = config.include || [],
             silentInclude = config.silentInclude === false ? false : true,
             withExtensions = config.withExtensions ? true : false;
@@ -29,7 +30,7 @@ module.exports = function (grunt) {
                 rename: function (dest, matchedSrcPath, options) {
                     return path.join(
                         dest,
-                        matchedSrcPath.replace(/\.ejs$/, '')
+                        outputfile || matchedSrcPath.replace(/\.ejs$/, '')
                     );
                 }
             }).forEach(function (file) {
